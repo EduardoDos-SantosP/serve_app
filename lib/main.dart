@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  final List<String> _list = ['a', 'b', 'c'];
+  final List<String> _list = ['Lorem', 'Ipsum', 'Test'];
 
   void _incrementCounter() {
     setState(() {
@@ -45,20 +45,42 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: _list.length,
-          itemBuilder: (context, index) => ListTile(
-            key: Key(index.toString()),
-            title: Text(_list[index]),
-          ),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    label: Text('Pesquisar'),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.zero),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: ListView.builder(
+                  itemCount: _list.length,
+                  itemBuilder: (context, i) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(_list[i]),
+                        subtitle: Text((i + 1).toStringAsFixed(2)),
+                        dense: true,
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
