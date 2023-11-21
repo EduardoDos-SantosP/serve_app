@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serve_app/widgets/custom_app_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,34 +34,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final List<String> _list = ['Lorem', 'Ipsum', 'Test'];
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-          centerTitle: true,
-        ),
+        appBar: CustomAppBar(widget.title),
         body: Container(
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.all(4),
                 child: const TextField(
                   decoration: InputDecoration(
                     label: Text('Pesquisar'),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.zero),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
                     ),
                   ),
                 ),
