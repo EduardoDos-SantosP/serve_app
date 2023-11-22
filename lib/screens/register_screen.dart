@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           SizedBox(height: 16),
           CustomTextField(
             labelText: "password",
-            prefixIcon: Icon(Icons.account_circle),
+            prefixIcon: Icon(Icons.lock),
             controller: _passwordController,
           ),
           SizedBox(height: 16),

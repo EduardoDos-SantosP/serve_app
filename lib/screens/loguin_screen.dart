@@ -67,7 +67,7 @@ class _LoguinScreenState extends State<LoguinScreen> {
                   child: Container(
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => RegisterScreen());
+                        Get.to(RegisterScreen());
                       },
                       child: Text('Cadastro',
                           style: TextStyle(color: Colors.white)),
@@ -79,7 +79,7 @@ class _LoguinScreenState extends State<LoguinScreen> {
                   child: Container(
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(() => HomeScreen());
+                        Get.to(HomeScreen());
                       },
                       child:
                           Text('Entrar', style: TextStyle(color: Colors.white)),

@@ -14,41 +14,41 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         // ta dando erro nessa budega aqui
-        //appBar: CustomAppBar(widget.title),
+        appBar: CustomAppBar("Serviços"),
         body: Container(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            padding: EdgeInsets.all(4),
-            child: const TextField(
-              decoration: InputDecoration(
-                label: Text('Pesquisar'),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.all(4),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    label: Text('Pesquisar'),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+              Flexible(
+                child: ListView.builder(
+                  itemCount: _list.length,
+                  itemBuilder: (context, i) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(_list[i]),
+                        subtitle: Text((i + 1).toStringAsFixed(2)),
+                        dense: true,
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
           ),
-          Flexible(
-            child: ListView.builder(
-              itemCount: _list.length,
-              itemBuilder: (context, i) {
-                return Card(
-                  child: ListTile(
-                    title: Text(_list[i]),
-                    subtitle: Text((i + 1).toStringAsFixed(2)),
-                    dense: true,
-                  ),
-                );
-              },
-            ),
-          )
-        ],
-      ),
-    ));
+        ));
   }
 }
