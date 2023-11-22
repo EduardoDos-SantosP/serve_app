@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:serve_app/screens/home_screen.dart';
+import 'package:serve_app/screens/register_screen.dart';
 
 class LoguinScreen extends StatefulWidget {
   const LoguinScreen({super.key});
@@ -9,6 +11,9 @@ class LoguinScreen extends StatefulWidget {
 }
 
 class _LoguinScreenState extends State<LoguinScreen> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +37,9 @@ class _LoguinScreenState extends State<LoguinScreen> {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               autofocus: false,
+              controller: _usernameController,
               decoration: InputDecoration(
-                  hintText: "Logon",
+                  hintText: "Username",
                   contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32))),
@@ -45,6 +51,7 @@ class _LoguinScreenState extends State<LoguinScreen> {
               keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               autofocus: false,
+              controller: _passwordController,
               decoration: InputDecoration(
                   hintText: "Senha",
                   contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -58,9 +65,10 @@ class _LoguinScreenState extends State<LoguinScreen> {
               children: [
                 Expanded(
                   child: Container(
-                    color: Colors.transparent,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => RegisterScreen());
+                      },
                       child: Text('Cadastro',
                           style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(primary: Colors.orange),
@@ -69,9 +77,10 @@ class _LoguinScreenState extends State<LoguinScreen> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.transparent,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => HomeScreen());
+                      },
                       child:
                           Text('Entrar', style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(primary: Colors.green),
