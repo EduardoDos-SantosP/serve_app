@@ -35,11 +35,11 @@ class _LoguinScreenState extends State<LoguinScreen> {
               height: 48,
             ),
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
+              //keyboardType: TextInputType.emailAddress,
               autofocus: false,
               controller: _usernameController,
               decoration: InputDecoration(
-                  hintText: "Username",
+                  hintText: "Login",
                   contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32))),
