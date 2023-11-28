@@ -53,11 +53,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () async {
                   print("Tentando criar usuario.");
                   User user = User(
-                    //id: 1,
+                    id: 1,
                     name: _nameController.text,
-                    email: _loginController.text,
+                    login: _loginController.text,
                     password: _passwordController.text,
                     tipo: _typeController.text,
+                    token: "",
                   );
 
                   try {

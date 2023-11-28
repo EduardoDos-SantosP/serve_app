@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serve_app/screens/home_screen.dart';
 import 'package:serve_app/screens/register_screen.dart';
+import 'package:serve_app/models/user.dart';
+import 'package:serve_app/repositories/user_repository.dart';
 
 class LoguinScreen extends StatefulWidget {
   const LoguinScreen({super.key});
@@ -11,7 +13,7 @@ class LoguinScreen extends StatefulWidget {
 }
 
 class _LoguinScreenState extends State<LoguinScreen> {
-  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _loginController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -37,7 +39,7 @@ class _LoguinScreenState extends State<LoguinScreen> {
             TextFormField(
               //keyboardType: TextInputType.emailAddress,
               autofocus: false,
-              controller: _usernameController,
+              controller: _loginController,
               decoration: InputDecoration(
                   hintText: "Login",
                   contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -78,8 +80,31 @@ class _LoguinScreenState extends State<LoguinScreen> {
                 Expanded(
                   child: Container(
                     child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(HomeScreen());
+                      onPressed: () async {
+                        //rota temporaria
+                        Get.to(() => HomeScreen());
+
+                        print("Tentando logar.");
+                        User user = User(
+                          id: 1,
+                          name: "",
+                          login: _loginController.text,
+                          password: _passwordController.text,
+                          tipo: "",
+                          token: "",
+                        );
+
+                        try {
+                          User? loginUser = await UserRepository().Login(user);
+                          if (loginUser != null) {
+                            print("Logon efetuado com sucesso.");
+                            Get.to(() => HomeScreen());
+                          } else {
+                            print("Logon não efetuado com sucesso.");
+                          }
+                        } catch (e) {
+                          print("Erro: $e");
+                        }
                       },
                       child:
                           Text('Entrar', style: TextStyle(color: Colors.white)),
