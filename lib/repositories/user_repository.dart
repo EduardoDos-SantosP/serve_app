@@ -8,6 +8,9 @@ class UserRepository {
 
     final response = await http.post(
       url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8'
+      },
       body: userToJson(user),
     );
     print(userToJson(user));
@@ -31,6 +34,9 @@ class UserRepository {
 
     final response = await http.post(
       url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=utf-8'
+      },
       body: userToJson(user),
     );
     print(userToJson(user));
