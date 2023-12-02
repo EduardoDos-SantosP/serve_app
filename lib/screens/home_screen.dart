@@ -6,7 +6,9 @@ import 'package:serve_app/widgets/custom_app_bar.dart';
 import '../models/servico.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String token;
+
+  const HomeScreen({super.key, required this.token});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,7 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _repository.getAll().then((value) => setState(() => _servicos = value));
+    _repository
+        .getAll(widget.token)
+        .then((value) => setState(() => _servicos = value));
   }
 
   @override

@@ -7,5 +7,5 @@ class ServicoRepository extends Repository<Servico> {
   String get resource => 'servico';
 
   @override
-  Servico getModel(Map<String, dynamic> json) => Servico.fromJson(json);
+  Servico getModel(Map<String, dynamic> json) => Servico.fromJsonObj(json);
 }

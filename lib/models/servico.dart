@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'model.dart';
 
 class Servico extends Model {
@@ -6,11 +8,14 @@ class Servico extends Model {
 
   Servico(String id, this.nome, this.preco) : super(id);
 
-  factory Servico.fromJson(Map<String, dynamic> json) =>
+  factory Servico.fromJsonObj(Map<String, dynamic> json) =>
       Servico(json['_id'], json['nome'], json['preco'] / 1.0);
 
+  factory Servico.fromJson(String json) =>
+      Servico.fromJsonObj(jsonDecode(json));
+
   @override
-  Map<String, dynamic> toJson() => super.toJson()
+  Map<String, dynamic> toJsonObj() => super.toJsonObj()
     ..['nome'] = nome
     ..['preco'] = preco;
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:serve_app/widgets/custom_text_field.dart';
 import 'package:get/get.dart';
-import 'package:serve_app/repositories/user_repository.dart';
-import 'package:serve_app/models/user.dart';
+import 'package:serve_app/models/usuario.dart';
+import 'package:serve_app/repository/usuario_repository.dart';
+import 'package:serve_app/widgets/custom_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -12,10 +12,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _loginController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _typeController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _typeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,58 +27,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               CustomTextField(
                 labelText: "Nome",
-                prefixIcon: Icon(Icons.account_circle),
+                prefixIcon: const Icon(Icons.account_circle),
                 controller: _nameController,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTextField(
                 labelText: "Login",
-                prefixIcon: Icon(Icons.account_circle),
+                prefixIcon: const Icon(Icons.account_circle),
                 controller: _loginController,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTextField(
                 labelText: "password",
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: const Icon(Icons.lock),
                 controller: _passwordController,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               CustomTextField(
                 labelText: "Tipo",
-                prefixIcon: Icon(Icons.account_circle),
+                prefixIcon: const Icon(Icons.account_circle),
                 controller: _typeController,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
-                  print("Tentando criar usuario.");
-                  User user = User(
-                    id: 1,
-                    name: _nameController.text,
-                    login: _loginController.text,
-                    password: _passwordController.text,
-                    tipo: _typeController.text,
-                    token: "",
+                  var user = Usuario(
+                    '',
+                    _nameController.text,
+                    _loginController.text,
+                    _passwordController.text,
                   );
 
                   try {
-                    User? createdUser = await UserRepository().newUser(user);
-                    if (createdUser != null) {
-                      print("Usuário criado com sucesso");
-                      Get.back();
-                    } else {
-                      print(
-                          "Usuário não foi criado (pode tratar de outra forma)");
-                    }
+                    await UsuarioRepository().create(user);
+                    Get.back();
                   } catch (e) {
                     print("Erro: $e");
                   }
                 },
-                child: Text(
+                style: ElevatedButton.styleFrom(primary: Colors.orange),
+                child: const Text(
                   "Cadastrar",
                   style: TextStyle(color: Colors.white),
                 ),
-                style: ElevatedButton.styleFrom(primary: Colors.orange),
               ),
             ],
           ),
