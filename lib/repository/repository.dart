@@ -19,9 +19,12 @@ abstract class Repository<T extends Model> {
         '$_baseUrl/${resource ?? this.resource}/${urlOptions ?? ''}',
       );
 
-  Future<List<T>> getAll(String token) async {
+  Future<List<T>> getAll(String token, String pesquisa) async {
     baseHeaders['authorization'] = token;
-    var response = await get(getUri(), headers: baseHeaders);
+    var response = await get(
+      getUri(urlOptions: '?nome=$pesquisa'),
+      headers: baseHeaders,
+    );
     var decoded = jsonDecode(response.body);
     validateResponse(decoded);
     return (decoded as List)

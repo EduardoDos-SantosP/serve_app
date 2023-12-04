@@ -15,32 +15,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> _list = ['Lorem', 'Ipsum', 'Test'];
   final Repository<Servico> _repository = ServicoRepository();
   List<Servico> _servicos = [];
+
+  void loadItens(String pesquisa) {
+    _repository
+        .getAll(widget.token, pesquisa)
+        .then((value) => setState(() => _servicos = value));
+  }
 
   @override
   void initState() {
     super.initState();
-    _repository
-        .getAll(widget.token)
-        .then((value) => setState(() => _servicos = value));
+    loadItens('');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // ta dando erro nessa budega aqui
         appBar: const CustomAppBar("Serviços"),
         body: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 padding: const EdgeInsets.all(4),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  decoration: const InputDecoration(
                     label: Text('Pesquisar'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(
@@ -48,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  onChanged: loadItens,
                 ),
               ),
               Flexible(
