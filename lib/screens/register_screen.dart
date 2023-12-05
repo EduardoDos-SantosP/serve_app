@@ -56,13 +56,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     _nameController.text,
                     _loginController.text,
                     _passwordController.text,
+                    _typeController.text,
                   );
 
                   try {
                     await UsuarioRepository().create(user);
                     Get.back();
                   } catch (e) {
-                    print("Erro: $e");
+                    print("Erro tela cadastro: $e");
                   }
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.orange),

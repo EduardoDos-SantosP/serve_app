@@ -36,14 +36,25 @@ abstract class Repository<T extends Model> {
   Future<T> create(T obj) async {
     var map = obj.toJsonObj();
     var body = jsonEncode(map);
+    final Uri url = Uri.parse("http://192.168.0.10:8000/usuario");
     var response = await post(
-      getUri(),
+      url,
       body: body,
       headers: baseHeaders,
     );
-    var decoded = jsonDecode(response.body);
-    validateResponse(decoded);
-    return getModel(decoded as Map<String, dynamic>);
+    print(jsonEncode(map));
+
+    final json = jsonDecode(response.body);
+
+    print(response.statusCode);
+    validateResponse(json);
+
+    if (response.statusCode == 200) {
+      return obj;
+      //return getModel(decoded as Map<String, dynamic>);
+    } else {
+      throw Exception("Falha na comunicação com o servidor");
+    }
   }
 
   void validateResponse(dynamic responseBody) {
