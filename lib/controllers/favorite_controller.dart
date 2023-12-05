@@ -5,6 +5,8 @@ import '../models/servico.dart';
 class FavoriteController extends GetxController {
   final List<Servico> _servicos = List<Servico>.empty(growable: true).obs;
 
+  List<Servico> getAll() => _servicos;
+
   void toggle(Servico s) =>
       _servicos.contains(s) ? _servicos.remove(s) : _servicos.add(s);
 

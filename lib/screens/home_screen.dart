@@ -11,7 +11,7 @@ import '../models/servico.dart';
 class HomeScreen extends StatefulWidget {
   final String token;
 
-  HomeScreen({super.key, required this.token});
+  const HomeScreen({super.key, required this.token});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final Repository<Servico> _repository = ServicoRepository();
   List<Servico> _servicos = [];
   final FavoriteController _favoriteController = Get.put(FavoriteController());
+  bool _showFavorites = false;
 
   void loadItens(String pesquisa) {
     _repository
@@ -39,27 +40,38 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: CustomAppBar(
           "Serviços",
-          button: FavoriteButton(onTap: () => {}),
+          button: FavoriteButton(onTap: () {
+            _showFavorites = !_showFavorites;
+            setState(() {
+              if (_showFavorites) {
+                _servicos = _favoriteController.getAll();
+              } else {
+                loadItens('');
+              }
+            });
+          }),
         ),
         body: Container(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                padding: const EdgeInsets.all(4),
-                child: TextField(
-                  decoration: const InputDecoration(
-                    label: Text('Pesquisar'),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5),
+              _showFavorites
+                  ? const Text('Favoritos')
+                  : Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.all(4),
+                      child: TextField(
+                        decoration: const InputDecoration(
+                          label: Text('Pesquisar'),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5),
+                            ),
+                          ),
+                        ),
+                        onChanged: loadItens,
                       ),
                     ),
-                  ),
-                  onChanged: loadItens,
-                ),
-              ),
               Flexible(
                 child: ListView.builder(
                   itemCount: _servicos.length,
