@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:serve_app/utils/api_endpoints.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/model.dart';
 
 abstract class Repository<T extends Model> {
@@ -19,7 +18,10 @@ abstract class Repository<T extends Model> {
         '$_baseUrl/${resource ?? this.resource}/${urlOptions ?? ''}',
       );
 
-  Future<List<T>> getAll(String token, String pesquisa) async {
+  Future<List<T>> getAll(String pesquisa) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token')!;
+
     baseHeaders['authorization'] = token;
     var response = await get(
       getUri(urlOptions: '?nome=$pesquisa'),

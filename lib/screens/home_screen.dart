@@ -5,7 +5,7 @@ import 'package:serve_app/repository/repository.dart';
 import 'package:serve_app/repository/servico_repository.dart';
 import 'package:serve_app/widgets/custom_app_bar.dart';
 import 'package:serve_app/widgets/favorite_button.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/servico.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,9 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final FavoriteController _favoriteController = Get.put(FavoriteController());
   bool _showFavorites = false;
 
-  void loadItens(String pesquisa) {
+  void loadItens(String pesquisa) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedToken = prefs.getString('token');
+
     _repository
-        .getAll(widget.token, pesquisa)
+        .getAll(pesquisa)
         .then((value) => setState(() => _servicos = value));
   }
 
