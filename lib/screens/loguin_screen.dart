@@ -83,6 +83,7 @@ class _LoguinScreenState extends State<LoguinScreen> {
 
                       try {
                         var token = await UsuarioRepository().login(user);
+                        //Get.off(() => HomeScreen(token: token));
                         Get.to(() => HomeScreen(token: token));
                       } catch (e) {
                         print("Erro Login: $e");

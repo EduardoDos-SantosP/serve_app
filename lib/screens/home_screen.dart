@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:serve_app/controllers/favorite_controller.dart';
 import 'package:serve_app/repository/repository.dart';
 import 'package:serve_app/repository/servico_repository.dart';
+import 'package:serve_app/screens/service_screen.dart';
 import 'package:serve_app/widgets/custom_app_bar.dart';
 import 'package:serve_app/widgets/favorite_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/servico.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,16 +45,33 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: CustomAppBar(
           "Serviços",
-          button: FavoriteButton(onTap: () {
-            _showFavorites = !_showFavorites;
-            setState(() {
-              if (_showFavorites) {
-                _servicos = _favoriteController.getAll();
-              } else {
-                loadItens('');
-              }
-            });
-          }),
+          button: Row(
+            children: [
+              FavoriteButton(onTap: () {
+                _showFavorites = !_showFavorites;
+                setState(() {
+                  if (_showFavorites) {
+                    _servicos = _favoriteController.getAll();
+                  } else {
+                    loadItens('');
+                  }
+                });
+              }),
+              Container(
+                //margin: const EdgeInsets.only(right: 15),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(() => const ServiceScreen());
+                  },
+                  child: const SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: Icon(Icons.add),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         body: Container(
           padding: const EdgeInsets.all(20),
